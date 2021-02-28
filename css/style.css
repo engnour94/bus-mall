@@ -1,0 +1,61 @@
+@import url('https://fonts.googleapis.com/css2?family=Yellowtail&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Carter+One&family=Yellowtail&display=swap');
+*{box-sizing: border-box;}
+body{
+    width: 960px;
+    margin: auto;
+ 
+    background-image: url('https://d2ie288hwu80n0.cloudfront.net/works/11599/big-thumb-2018-07-26-XF-IM7LUxBK4VfwFaTocgnz0iJRwnb73SswK-RNzbX9H_N8ehq-r2lKsbYaqoRtCYxM0NHF5tXMnhD1z.jpg'); 
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+   
+}
+.container{
+    display: grid;
+    grid-template-rows: 100px minmax(calc(100vh-170px ) , 1fr) 50px;
+    gap: 10px;
+
+}
+
+.image-section{
+
+    display: grid;
+    grid-template-columns: 300px 300px 300px;
+    gap: 30px;
+}
+
+img{
+
+    width: 100%;
+   background-color: white; width: 300px; height: 300px;
+}
+
+header{
+  text-align: center;  
+ margin-top: 30px;
+ font-family: 'Yellowtail', cursive;
+ 
+ font-weight: bold;
+ 
+}
+ul{
+    font-family: 'Carter One', cursive;
+
+}
+h1{font-size: 60px;}
+h2{font-size: 40px;}
+
+
+footer{
+
+    background-color:#ff9292 ;
+    text-align: center;
+    font-family: 'Carter One', cursive;
+    font-size: 20px;
+   
+}
+p{
+
+   margin-top: 15px;
+}
