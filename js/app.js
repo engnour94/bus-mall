@@ -27,6 +27,7 @@ const leftImage = document.getElementById( 'leftImage' );
 const midImage = document.getElementById( 'midImage' );
 const rightImage = document.getElementById( 'rightImage' );
 const viewResult = document.getElementById( 'viewResult' );
+const result = document.getElementById('result')
 
 let leftProductIndex = 0;
 let midProductIndex = 0;
@@ -84,11 +85,6 @@ function render(){
 }
 
 
-
-
-imageSection.addEventListener( 'click', handelClick );
-
-
 function handelClick( event ){
 
   if( Product.counter <= clickCounter ){
@@ -110,28 +106,37 @@ function handelClick( event ){
 
       Product.counter++;
       render();
-      console.log( Product.all );
+      //console.log( Product.all );
     }
 
-  }else {
-    for ( let i = 0; i < Product.all.length; i++ ) {
-      let liE1 = document.createElement( 'li' );
 
-      liE1.textContent = `${Product.all[i].imageName} had ${Product.all[i].clicks} Views, and was seen ${Product.all[i].shown} times`;
-      viewResult.appendChild( liE1 );
-    }
-
-    imageSection.removeEventListener( 'click', handelClick );
   }
 
 
+}
+imageSection.addEventListener( 'click', handelClick );
+
+viewResult.addEventListener( 'click', getResult );
+
+function getResult() {
+  console.log( Product.all );
+  for ( let i = 0; i < Product.all.length; i++ ) {
+    let liE1 = document.createElement( 'li' );
+    result.appendChild( liE1 );
+    liE1.textContent = `${Product.all[i].imageName} had ${Product.all[i].clicks} Votes, and was seen ${Product.all[i].shown} times`;
+  }
+  viewResult.removeEventListener( 'click', getResult );
+  viewResult.textContent = 'Reset';
+  viewResult.onclick = function( ) {
+    location.reload();
+  };
 }
 
 
 
 
 
-console.log( Product.all );
+//console.log( Product.all );
 
 // Helper function
 function randomNumber( min, max ) {

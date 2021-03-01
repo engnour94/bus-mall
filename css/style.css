@@ -13,7 +13,7 @@ body{
 }
 .container{
     display: grid;
-    grid-template-rows: 100px minmax(calc(100vh-170px ) , 1fr) 50px;
+    grid-template-rows: 100px minmax(calc(100vh - 170px) , 1fr) 50px;
     gap: 10px;
 
 }
@@ -43,8 +43,8 @@ ul{
     font-family: 'Carter One', cursive;
 
 }
-h1{font-size: 60px;}
-h2{font-size: 40px;}
+h1{font-size: 40px;}
+h2{font-size: 30px;}
 
 
 footer{
