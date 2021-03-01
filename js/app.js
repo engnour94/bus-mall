@@ -27,13 +27,13 @@ const leftImage = document.getElementById( 'leftImage' );
 const midImage = document.getElementById( 'midImage' );
 const rightImage = document.getElementById( 'rightImage' );
 const viewResult = document.getElementById( 'viewResult' );
-const result = document.getElementById('result')
+const result = document.getElementById( 'result' );
 
 let leftProductIndex = 0;
 let midProductIndex = 0;
 let rightProductIndex = 0;
 const clickCounter = 25;
-
+let imgPerClick =[];
 
 
 
@@ -58,13 +58,19 @@ function render(){
   let midIndex =randomNumber( 0,Product.all.length - 1 );
   let rightIndex =randomNumber( 0,Product.all.length - 1 );
 
-  while( leftIndex===rightIndex|| leftIndex===midIndex||rightIndex===midIndex ){
+  while( leftIndex===rightIndex|| leftIndex===midIndex||rightIndex===midIndex || imgPerClick.includes( leftIndex )||imgPerClick.includes( midIndex )||imgPerClick.includes( rightIndex ) ){
     leftIndex =randomNumber( 0,Product.all.length - 1 );
     midIndex =randomNumber( 0,Product.all.length - 1 );
     rightIndex =randomNumber( 0,Product.all.length - 1 );
 
 
   }
+  imgPerClick=[];
+  imgPerClick.push( leftIndex );
+  imgPerClick.push( midIndex );
+  imgPerClick.push( rightIndex );
+
+
   leftImage.src = Product.all[leftIndex].imageUrl;
   leftImage.alt = Product.all[leftIndex].name;
   leftProductIndex =leftIndex;
@@ -130,10 +136,158 @@ function getResult() {
   viewResult.onclick = function( ) {
     location.reload();
   };
+  renderChart();
 }
 
 
+//console.log( shownArray );
 
+
+
+function renderChart() {
+
+  let nameArray = [];
+  let clicksArray = [];
+  let shownArray = [];
+  for( let i = 0; i < Product.all.length; i++ ) {
+    nameArray.push( Product.all[i].imageName );
+    clicksArray.push( Product.all[i].clicks );
+    // console.log(Product.all[i].shown)
+    shownArray.push( Product.all[i].shown );
+
+  }
+
+  //console.log(Product.all[0])
+
+  let ctx = document.getElementById( 'myChart' ).getContext( '2d' );
+  let myChart = new Chart( ctx, {
+    type: 'bar',
+    data: {
+      labels: nameArray,
+      datasets: [{
+        label: '# of Votes',
+        data: clicksArray,
+        backgroundColor: [
+          
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)',
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)',
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)',
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)'
+          
+        ],
+        borderColor: [
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)',
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)',
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)',
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)'
+        ],
+        borderWidth: 1},
+
+      {
+        label: '# of Shown',
+        data: shownArray,
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)',
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)',
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)',
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+        ],
+        borderColor: [
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)',
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)',
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)',
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+        ],
+        borderWidth: 1
+
+      }]
+
+
+    },
+    options: {
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero: true
+          }
+        }]
+      }
+    }
+  } );
+}
+//renderChart();
 
 
 //console.log( Product.all );
@@ -145,3 +299,5 @@ function randomNumber( min, max ) {
 
 render();
 //console.log( render );
+console.log( imgPerClick );
+
