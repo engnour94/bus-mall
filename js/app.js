@@ -93,7 +93,7 @@ function render(){
 
 function handelClick( event ){
 
-  if( Product.counter <= clickCounter ){
+  if( Product.counter < clickCounter ){
     const clickedElement = event.target;
 
     if( clickedElement.id === 'leftImage' || clickedElement.id === 'rightImage'||clickedElement.id==='midImage' ) {
@@ -112,7 +112,7 @@ function handelClick( event ){
 
       Product.counter++;
       render();
-      //console.log( Product.all );
+
     }
 
 
