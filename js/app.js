@@ -33,7 +33,7 @@ let leftProductIndex = 0;
 let midProductIndex = 0;
 let rightProductIndex = 0;
 const clickCounter = 25;
-let imgPerClick =[];
+let indices =[];
 
 
 
@@ -58,17 +58,17 @@ function render(){
   let midIndex =randomNumber( 0,Product.all.length - 1 );
   let rightIndex =randomNumber( 0,Product.all.length - 1 );
 
-  while( leftIndex===rightIndex|| leftIndex===midIndex||rightIndex===midIndex || imgPerClick.includes( leftIndex )||imgPerClick.includes( midIndex )||imgPerClick.includes( rightIndex ) ){
+  while( leftIndex===rightIndex|| leftIndex===midIndex||rightIndex===midIndex ){
     leftIndex =randomNumber( 0,Product.all.length - 1 );
     midIndex =randomNumber( 0,Product.all.length - 1 );
     rightIndex =randomNumber( 0,Product.all.length - 1 );
 
 
   }
-  imgPerClick=[];
-  imgPerClick.push( leftIndex );
-  imgPerClick.push( midIndex );
-  imgPerClick.push( rightIndex );
+  indices=[];
+  indices.push( leftIndex );
+  indices.push( midIndex );
+  indices.push( rightIndex );
 
 
   leftImage.src = Product.all[leftIndex].imageUrl;
@@ -93,7 +93,7 @@ function render(){
 
 function handelClick( event ){
 
-  if( Product.counter <= clickCounter ){
+  if( Product.counter < clickCounter ){
     const clickedElement = event.target;
 
     if( clickedElement.id === 'leftImage' || clickedElement.id === 'rightImage'||clickedElement.id==='midImage' ) {
@@ -168,7 +168,7 @@ function renderChart() {
         label: '# of Votes',
         data: clicksArray,
         backgroundColor: [
-          
+
           'rgba(255, 99, 132, 0.2)',
           'rgba(54, 162, 235, 0.2)',
           'rgba(255, 206, 86, 0.2)',
@@ -191,7 +191,7 @@ function renderChart() {
           'rgba(54, 162, 235, 0.2)',
           'rgba(255, 206, 86, 0.2)',
           'rgba(75, 192, 192, 0.2)'
-          
+
         ],
         borderColor: [
           'rgba(255, 99, 132, 1)',
@@ -293,11 +293,20 @@ function renderChart() {
 //console.log( Product.all );
 
 // Helper function
-function randomNumber( min, max ) {
-  return Math.floor( Math.random() * ( max - min + 1 ) ) + min;
-}
 
+
+
+function randomNumber( min, max ) {
+
+  let index2 = Math.floor( Math.random() * ( max - min + 1 ) ) + min;
+  for( let i = 0;i < indices.length;i++ ){
+    if ( index2 === indices[i] ){
+      index2 = Math.floor( Math.random() * ( max - min + 1 ) ) + min;
+    }
+  }return( index2 );
+
+}
 render();
 //console.log( render );
-console.log( imgPerClick );
+
 
