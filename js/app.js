@@ -45,6 +45,7 @@ function Product ( name )
   this.clicks = 0;
   this.shown = 0;
   Product.all.push( this );
+
 }
 
 Product.all = [];
@@ -89,7 +90,7 @@ function render(){
   Product.all[rightIndex].shown++;
 
 }
-
+imageSection.addEventListener( 'click', handelClick );
 
 function handelClick( event ){
 
@@ -111,27 +112,40 @@ function handelClick( event ){
       }
 
       Product.counter++;
+      localStorage.setItem( 'result', JSON.stringify( Product.all ) );
       render();
 
     }
+
 
 
   }
 
 
 }
-imageSection.addEventListener( 'click', handelClick );
+removeEventListener( 'click',handelClick );
+
+
+
 
 viewResult.addEventListener( 'click', getResult );
 
 function getResult() {
+
+
+
   console.log( Product.all );
   for ( let i = 0; i < Product.all.length; i++ ) {
     let liE1 = document.createElement( 'li' );
     result.appendChild( liE1 );
     liE1.textContent = `${Product.all[i].imageName} had ${Product.all[i].clicks} Votes, and was seen ${Product.all[i].shown} times`;
   }
+
+
   viewResult.removeEventListener( 'click', getResult );
+
+
+
   viewResult.textContent = 'Reset';
   viewResult.onclick = function( ) {
     location.reload();
@@ -140,7 +154,8 @@ function getResult() {
 }
 
 
-//console.log( shownArray );
+
+
 
 
 
@@ -310,3 +325,12 @@ render();
 //console.log( render );
 
 
+function getData() {
+  const data = localStorage.getItem( 'result' );
+  if( data ) {
+    const objData = JSON.parse( data );
+    Product.all = objData;
+    render();
+  }
+}
+getData();
