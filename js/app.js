@@ -27,7 +27,7 @@ const leftImage = document.getElementById( 'leftImage' );
 const midImage = document.getElementById( 'midImage' );
 const rightImage = document.getElementById( 'rightImage' );
 const viewResult = document.getElementById( 'viewResult' );
-const result = document.getElementById('result')
+const result = document.getElementById( 'result' );
 
 let leftProductIndex = 0;
 let midProductIndex = 0;
@@ -87,7 +87,7 @@ function render(){
 
 function handelClick( event ){
 
-  if( Product.counter <= clickCounter ){
+  if( Product.counter < clickCounter ){
     const clickedElement = event.target;
 
     if( clickedElement.id === 'leftImage' || clickedElement.id === 'rightImage'||clickedElement.id==='midImage' ) {
@@ -106,7 +106,7 @@ function handelClick( event ){
 
       Product.counter++;
       render();
-      //console.log( Product.all );
+
     }
 
 
