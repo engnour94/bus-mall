@@ -1,3 +1,7 @@
+
+
+
+
 'use strict';
 
 let productArr=[
@@ -33,18 +37,19 @@ let leftProductIndex = 0;
 let midProductIndex = 0;
 let rightProductIndex = 0;
 const clickCounter = 25;
-
+let indices =[];
 
 
 
 console.log( productArr.length );
-function Product ( name)
+function Product ( name )
 {
   this.imageUrl = `../img/${name}`;
   this.imageName = name.split( '.' )[0];
   this.clicks = 0;
   this.shown = 0;
   Product.all.push( this );
+
 }
 
 Product.all = [];
@@ -66,15 +71,15 @@ function render(){
 
   }
   leftImage.src = Product.all[leftIndex].imageUrl;
-  leftImage.alt = Product.all[leftIndex].imageName;
+  leftImage.alt = Product.all[leftIndex].name;
   leftProductIndex =leftIndex;
 
   midImage.src = Product.all[midIndex].imageUrl;
-  midImage.alt = Product.all[midIndex].imageName;
+  midImage.alt = Product.all[midIndex].name;
   midProductIndex =leftIndex;
 
   rightImage.src = Product.all[rightIndex].imageUrl;
-  rightImage.alt = Product.all[rightIndex].imageName;
+  rightImage.alt = Product.all[rightIndex].name;
   rightProductIndex =leftIndex;
 
 
@@ -105,43 +110,52 @@ function handelClick( event ){
       }
 
       Product.counter++;
+
       render();
 
     }
+
 
 
   }
 
 
 }
+
+
+
 imageSection.addEventListener( 'click', handelClick );
+removeEventListener( 'click',handelClick );
 
 viewResult.addEventListener( 'click', getResult );
 
 function getResult() {
+
+
+
   console.log( Product.all );
   for ( let i = 0; i < Product.all.length; i++ ) {
     let liE1 = document.createElement( 'li' );
     result.appendChild( liE1 );
     liE1.textContent = `${Product.all[i].imageName} had ${Product.all[i].clicks} Votes, and was seen ${Product.all[i].shown} times`;
   }
+
+
   viewResult.removeEventListener( 'click', getResult );
+
+
+
   viewResult.textContent = 'Reset';
   viewResult.onclick = function( ) {
     location.reload();
   };
 }
 
+render();
 
 
-
-
-//console.log( Product.all );
 
 // Helper function
 function randomNumber( min, max ) {
   return Math.floor( Math.random() * ( max - min + 1 ) ) + min;
 }
-
-render();
-//console.log( render );
