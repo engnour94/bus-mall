@@ -45,6 +45,7 @@ function Product ( name )
   this.clicks = 0;
   this.shown = 0;
   Product.all.push( this );
+
 }
 
 Product.all = [];
@@ -54,40 +55,37 @@ for( let i = 0; i < productArr.length; i++ ) {
   new Product( productArr[i] );
 }
 function render(){
-  let leftIndex =randomNumber( 0,Product.all.length - 1 );
-  let midIndex =randomNumber( 0,Product.all.length - 1 );
-  let rightIndex =randomNumber( 0,Product.all.length - 1 );
-
-  while( leftIndex===rightIndex|| leftIndex===midIndex||rightIndex===midIndex ){
-    leftIndex =randomNumber( 0,Product.all.length - 1 );
-    midIndex =randomNumber( 0,Product.all.length - 1 );
-    rightIndex =randomNumber( 0,Product.all.length - 1 );
 
 
-  }
-  indices=[];
-  indices.push( leftIndex );
-  indices.push( midIndex );
-  indices.push( rightIndex );
 
+  let leftIndex = randomNumber( 0, Product.all.length - 1 );
 
   leftImage.src = Product.all[leftIndex].imageUrl;
-  leftImage.alt = Product.all[leftIndex].name;
-  leftProductIndex =leftIndex;
+  leftImage.alt = Product.all[leftIndex].imageName;
+  leftProductIndex = leftIndex;
+  indices.push( leftIndex );
 
+  let midIndex;
+  let rightIndex;
+  do {
+    midIndex =randomNumber( 0,Product.all.length - 1 );
+  } while ( leftIndex === midIndex||midIndex===rightIndex );
   midImage.src = Product.all[midIndex].imageUrl;
-  midImage.alt = Product.all[midIndex].name;
-  midProductIndex =leftIndex;
+  midImage.alt = Product.all[midIndex].imageName;
+  midProductIndex = midIndex;
+  indices.push( midIndex );
 
+  do {
+    rightIndex = randomNumber( 0, Product.all.length - 1 );
+  } while ( leftIndex === rightIndex || midIndex === rightIndex );
   rightImage.src = Product.all[rightIndex].imageUrl;
-  rightImage.alt = Product.all[rightIndex].name;
-  rightProductIndex =leftIndex;
-
+  rightImage.alt = Product.all[rightIndex].imageName;
+  rightProductIndex = rightIndex;
+  indices.push( rightIndex );
 
   Product.all[leftIndex].shown++;
   Product.all[midIndex].shown++;
   Product.all[rightIndex].shown++;
-
 }
 
 
@@ -111,27 +109,41 @@ function handelClick( event ){
       }
 
       Product.counter++;
+
       render();
-      //console.log( Product.all );
+
     }
+
 
 
   }
 
 
 }
+
+
+
 imageSection.addEventListener( 'click', handelClick );
+removeEventListener( 'click',handelClick );
 
 viewResult.addEventListener( 'click', getResult );
 
 function getResult() {
+
+
+
   console.log( Product.all );
   for ( let i = 0; i < Product.all.length; i++ ) {
     let liE1 = document.createElement( 'li' );
     result.appendChild( liE1 );
     liE1.textContent = `${Product.all[i].imageName} had ${Product.all[i].clicks} Votes, and was seen ${Product.all[i].shown} times`;
   }
+
+
   viewResult.removeEventListener( 'click', getResult );
+
+
+
   viewResult.textContent = 'Reset';
   viewResult.onclick = function( ) {
     location.reload();
@@ -140,7 +152,8 @@ function getResult() {
 }
 
 
-//console.log( shownArray );
+
+
 
 
 
@@ -296,6 +309,10 @@ function renderChart() {
 
 
 
+// Helper function
+
+
+
 function randomNumber( min, max ) {
 
   let index2 = Math.floor( Math.random() * ( max - min + 1 ) ) + min;
@@ -307,6 +324,3 @@ function randomNumber( min, max ) {
 
 }
 render();
-//console.log( render );
-
-
