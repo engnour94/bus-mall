@@ -38,7 +38,7 @@ const clickCounter = 25;
 
 
 console.log( productArr.length );
-function Product ( name )
+function Product ( name)
 {
   this.imageUrl = `../img/${name}`;
   this.imageName = name.split( '.' )[0];
@@ -66,15 +66,15 @@ function render(){
 
   }
   leftImage.src = Product.all[leftIndex].imageUrl;
-  leftImage.alt = Product.all[leftIndex].name;
+  leftImage.alt = Product.all[leftIndex].imageName;
   leftProductIndex =leftIndex;
 
   midImage.src = Product.all[midIndex].imageUrl;
-  midImage.alt = Product.all[midIndex].name;
+  midImage.alt = Product.all[midIndex].imageName;
   midProductIndex =leftIndex;
 
   rightImage.src = Product.all[rightIndex].imageUrl;
-  rightImage.alt = Product.all[rightIndex].name;
+  rightImage.alt = Product.all[rightIndex].imageName;
   rightProductIndex =leftIndex;
 
 
