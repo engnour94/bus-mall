@@ -55,42 +55,36 @@ for( let i = 0; i < productArr.length; i++ ) {
   new Product( productArr[i] );
 }
 function render(){
-  let leftIndex =randomNumber( 0,Product.all.length - 1 );
-  let midIndex =randomNumber( 0,Product.all.length - 1 );
-  let rightIndex =randomNumber( 0,Product.all.length - 1 );
-
-  while( leftIndex===rightIndex|| leftIndex===midIndex||rightIndex===midIndex ){
-    leftIndex =randomNumber( 0,Product.all.length - 1 );
-    midIndex =randomNumber( 0,Product.all.length - 1 );
-    rightIndex =randomNumber( 0,Product.all.length - 1 );
-
-
-  }
-  indices=[];
-  indices.push( leftIndex );
-  indices.push( midIndex );
-  indices.push( rightIndex );
-
-
+  let leftIndex = randomNumber( 0, Product.all.length - 1 );
   leftImage.src = Product.all[leftIndex].imageUrl;
-  leftImage.alt = Product.all[leftIndex].name;
-  leftProductIndex =leftIndex;
+  leftImage.alt = Product.all[leftIndex].imageName;
+  leftProductIndex = leftIndex;
+  indices.push( leftIndex );
 
+  let midIndex;
+  do {
+    midIndex =randomNumber( 0,Product.all.length - 1 );
+  } while ( leftIndex === midIndex );
   midImage.src = Product.all[midIndex].imageUrl;
-  midImage.alt = Product.all[midIndex].name;
-  midProductIndex =leftIndex;
+  midImage.alt = Product.all[midIndex].imageName;
+  midProductIndex = midIndex;
+  indices.push( midIndex );
+
+  let rightIndex;
+  do {
+    rightIndex = randomNumber( 0, Product.all.length - 1 );
+  } while ( leftIndex === rightIndex || leftIndex === midIndex || midIndex === rightIndex );
 
   rightImage.src = Product.all[rightIndex].imageUrl;
-  rightImage.alt = Product.all[rightIndex].name;
-  rightProductIndex =leftIndex;
-
+  rightImage.alt = Product.all[rightIndex].imageName;
+  rightProductIndex = rightIndex;
+  indices.push( rightIndex );
 
   Product.all[leftIndex].shown++;
   Product.all[midIndex].shown++;
   Product.all[rightIndex].shown++;
-
 }
-imageSection.addEventListener( 'click', handelClick );
+
 
 function handelClick( event ){
 
@@ -123,10 +117,11 @@ function handelClick( event ){
 
 
 }
+
+
+
+imageSection.addEventListener( 'click', handelClick );
 removeEventListener( 'click',handelClick );
-
-
-
 
 viewResult.addEventListener( 'click', getResult );
 
